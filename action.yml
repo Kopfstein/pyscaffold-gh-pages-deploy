@@ -2,6 +2,10 @@ name: pyscaffold-gh-pages-deploy
 description: Build and deploy documentation for Pyscaffold-based projects on GitHub Pages.
 author: "Andreas Klust"
 
+branding:
+  icon: 'book-open'
+  color: 'green'
+
 inputs:
   git_user_name:
     description: Git configuration user.name
