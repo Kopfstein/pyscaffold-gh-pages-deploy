@@ -1,0 +1,57 @@
+name: pyscaffold-gh-pages-deploy
+description: Build and deploy documentation for Pyscaffold-based projects on GitHub Pages.
+author: "Andreas Klust"
+
+inputs:
+  git_user_name:
+    description: Git configuration user.name
+    required: false
+    default: pyscaffold-gh-pages-deploy
+  git_user_email:
+    description: Git configuration user.name
+    required: false
+    default: pyscaffold-gh-pages-deploy@users.noreply.github.com
+
+runs:
+  using: "composite"
+  steps:
+    - name: Install dependencies
+      shell: bash
+      run: |
+        pip install --upgrade pip
+        pip install tox
+    - name: Configure git
+      shell: bash
+      run: |
+        git config user.name ${{ inputs.git_user_name }}
+        git config user.email ${{ inputs.git_user_email }}
+    - name: Create branch gh-pages if necessary
+      shell: bash
+      run: |
+        if [[ -z $(git ls-remote --heads origin gh-pages) ]]; then
+          echo "Creating gh-pages branch"
+          git checkout --orphan gh-pages
+          git reset --hard
+          git commit --allow-empty -m "Create Branch gh-pages"
+          git push origin gh-pages
+          echo "Created gh-pages branch"
+        else
+          echo "Branch gh-pages already exists"
+        fi
+    - name: Checkout main
+      shell: bash
+      run: |
+        git checkout main
+    - name: Build documentation
+      shell: bash
+      run: |
+        tox -e docs
+    - name: Push documentation to gh-pages
+      shell: bash
+      run: |
+        DIR_HTML="docs/_build/html/"
+        touch "$DIR_HTML"/.nojekyll
+        git add -f "$DIR_HTML"
+        git commit -m "Update build documentation"
+        REFSPEC_SOURCE=$(git subtree split --prefix "$DIR_HTML" main)
+        git push --force origin "$REFSPEC_SOURCE":gh-pages
