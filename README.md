@@ -22,7 +22,7 @@ Individual steps used by this GitHub Action:
 
 ## Installation
 
-Create a YAML file with the name `gh-pages-deploy.yml` in the folder `.github/workflows` of your repo with following content:
+You can add this action to your GitHub Workflow by adding a YAML file with the name `gh-pages-deploy.yml` in the folder `.github/workflows` of your repo with following content:
 
 ```
 name: gh-pages-deploy
@@ -41,10 +41,8 @@ jobs:
         with:
           python-version: 3.8
       - name: Deploy docs to GitHub Pages
-        uses: Kopfstein/pyscaffold-gh-pages-deploy@v0.0.1
+        uses: Kopfstein/pyscaffold-gh-pages-deploy@latest
 ```
-
-**Note:** Replace `Kopfstein/pyscaffold-gh-pages-deploy@v0.0.1` to use the latest version.
 
 
 ## Ackowledgements
