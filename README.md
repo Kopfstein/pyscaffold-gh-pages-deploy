@@ -8,6 +8,9 @@ Build and deploy documentation for Pyscaffold-based projects on GitHub Pages.
 [GitHub Action](https://docs.github.com/en/actions/) to automatically build the documentation of a Python project based on 
 [Pyscaffold](https://pyscaffold.org/) and publish it on [GitHub Pages](https://docs.github.com/en/pages).
 
+See [Repository pyscaffold-gh-pages-deploy-test](https://github.com/Kopfstein/pyscaffold-gh-pages-deploy-test) for a demo project 
+generating [documentation on Github Pages](https://kopfstein.github.io/pyscaffold-gh-pages-deploy-test/).
+
 Individual steps used by this GitHub Action:
 1. Install dependencies (tox)
 2. Configure git
